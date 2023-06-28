@@ -36,7 +36,8 @@ void loop() {
   // read the sensor pins and calculate voltage
   sensorValue_neg = analogRead(sensor_neg);
   sensorValue_plus = analogRead(sensor_plus);
-  mVolts = (sensorValue_plus-sensorValue_neg)*0.00488 * 1000 / 1.3; // current in mA
+  // 10-bit analog reading => V, V/R => I, A => mA
+  mVolts = (sensorValue_plus-sensorValue_neg)*(0.00488 / 1.3) * 1000; // (5v/1024bits)*(1/1.3R)*(1000mA/1A) => mA
 
   // rolling average
   data_filtered[n-3] = data_filtered[n-2];
